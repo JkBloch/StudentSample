@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Add Teacher";
+    List<SelectListItem> lstSex = new List<SelectListItem>();
+    lstSex.Add(new SelectListItem("Male", "Male"));
+    lstSex.Add(new SelectListItem("Female", "Female"));
+    lstSex.Add(new SelectListItem("Other", "Other"));
+}
+@model TeacherModel
+
+<div class="container">
+    <h5 class="display-7"> Add NewTeacher</h5>
+    @if (ViewBag.IsSuccess)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Record added successfully. <br />
+            Click <a asp-controller="teacher" asp-action="getteacher" asp-route-Id="@ViewBag.TeacherId"> here </a> to view the details.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="myLoader" style="display:none;">
+            <span class="sr-only"></span>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data"
+          data-ajax="false"
+          data-ajax-complete="myComplete"
+          data-ajax-success="mySuccess"
+          data-ajax-failure="myFailure"
+          data-ajax-loading="#myLoader"
+          asp-action="InsertTeacher" asp-controller="Teacher">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Sex"></label>
+            <select asp-for="Sex" class="form-select" required asp-items="lstSex">
+                <option value="">Select Gender</option>
+            </select>
+            <span asp-validation-for="Sex" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Age"></label>
+            <input asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TeacherPhoto"></label>
+            <div class="custom-file">
+                <input asp-for="TeacherPhoto" class="custom-file-input form-control " id="customFile">
+            </div>
+            <span asp-validation-for="TeacherPhoto" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <br />
+            <input type="submit" class="btn btn-primary" value="Add Teacher" />
+
+        </div>
+    </form>
+</div>

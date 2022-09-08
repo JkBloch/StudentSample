@@ -1,0 +1,49 @@
+﻿@inject StudentSample.ISubjectRepository _subjectRepository
+@inject StudentSample.ILanguageRepository _languageRepository
+
+@{
+    ViewData["Title"] = "Add SubjectLanguageMapping";
+    var selectlstSubject = (await _subjectRepository.GetAllSubject()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var selectlstLanguage = (await _languageRepository.GetAllLanguage()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+@model SubjectLanguageMappingModel
+
+<div class="container">
+    <h5 class="display-7"> Add NewSubjectLanguageMapping</h5>
+    @if (ViewBag.IsSuccess)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Record added successfully. <br />
+            Click <a asp-controller="subject" asp-action="getsubjectLanguageMapping" asp-route-Id="@ViewBag.SubjectLanguageMappingId"> here </a> to view the details.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="myLoader" style="display:none;">
+            <span class="sr-only"></span>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data"          
+          asp-action="InsertSubjectLanguageMapping" asp-controller="Subject">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="SubjectId"></label>
+            <select asp-for="SubjectId" class="form-select" required asp-items="selectlstSubject">
+                <option value="">Select Subject</option>
+            </select>
+            <span asp-validation-for="SubjectId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LanguageId"></label>
+            <select asp-for="LanguageId" class="form-select" required asp-items="selectlstLanguage">
+                <option value="">Select Language</option>
+            </select>
+            <span asp-validation-for="LanguageId" class="text-danger"></span>
+        </div>     
+    
+        <div class="form-group">
+            <br />
+            <input type="submit" class="btn btn-primary" value="Add SubjectLanguageMapping" />
+        </div>
+    </form>
+</div>

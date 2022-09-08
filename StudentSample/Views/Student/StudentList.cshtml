@@ -1,0 +1,81 @@
+﻿@inject StudentSample.IStudentClassRepository _studentClassRepository
+@model StudentListModel
+@{
+    ViewData["Title"] = "Student List";
+    var selectlstStudentClass = (await _studentClassRepository.GetAllStudentClass()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+<form method="post" enctype="multipart/form-data"      
+      asp-action="StudentList" asp-controller="Student">
+@if (@Model != null)
+    {
+        <div class="containt">
+            <div class="row">
+                <div class="col">
+                      <div class="form-group">
+            <label asp-for="StudentClassId"></label>
+            <select asp-for="StudentClassId" class="form-select" required asp-items="selectlstStudentClass">
+                <option value="@Guid.Empty">All</option>
+            </select>
+            <span asp-validation-for="StudentClassId" class="text-danger"></span>
+        </div>
+                    </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="StudentName"></label>
+                        <input asp-for="StudentName" class="form-control" />
+                        <span asp-validation-for="StudentName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="Search" />                        
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <div class="=row">
+                <div class="col">
+                    <table class="table" id="tblStudentGrid">
+                        <thead>
+                            <tr>
+                                <th>Roll No</th>
+                                <th>Name</th>
+                                <th>Student Class</th>
+                                <th>Age</th>
+                                <th>Select</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var data in @Model.StudentList)
+                            {
+                                <tr>
+                                    <td>@data.RollNo </td>
+                                    <td>@data.Name </td>
+                                    <td>@data.ClassName </td>
+                                    <td>@data.Age </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-info" asp-controller="student" asp-action="getstudent" asp-route-Id="@data.Id"> Select </button>
+                                        </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-danger" asp-controller="student" asp-action="deletestudent" asp-route-Id="@data.Id"> Delete </button>
+                                        </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+      
+        
+
+      
+}
+</form>

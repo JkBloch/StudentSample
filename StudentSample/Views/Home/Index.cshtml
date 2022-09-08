@@ -1,0 +1,194 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    
+
+.col-sm-3 {  
+    width: 20%;
+    height:150px!important;
+}
+
+    p, span, a, ul, li, button {
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+    }
+
+    strong {
+        font-weight: 600;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Open Sans', "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serify;
+        line-height: 1.5em;
+        font-weight: 300;
+    }
+
+    strong {
+        font-weight: 400;
+    }
+
+    .tile {
+        width: 100%;
+        display: inline-block;
+        box-sizing: border-box;
+        background: #fff;
+        padding: 10px;
+        min-height:150px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        margin-top: 0px;
+    }
+
+    .purple, .blue, .red, .orange, .green {
+        color: #fff;
+    }
+
+    .purple {
+        background: #5133AB;
+    }
+
+        .purple:hover {
+            background: darken(#5133AB, 10%);
+        }
+
+    .red {
+        background: #AC193D;
+    }
+
+        .red:hover {
+            background: darken(#AC193D, 10%);
+        }
+
+
+    .green {
+        background: #00A600;
+    }
+
+        .green:hover {
+            background: darken(#00A600, 10%);
+        }
+
+
+    .blue {
+        background: #2672EC;
+    }
+
+        .blue:hover {
+            background: darken(#2672EC, 10%);
+        }
+
+
+    .orange {
+        background: #DC572E;
+    }
+
+        .orange:hover {
+            background: darken(#DC572E, 10%);
+        }
+</style>
+           
+<div class="container bootstrap snippets bootdey">
+  <div class="row">
+    <div class="col-md-16">
+      <h1><strong>Developer Test  </strong></h1>
+    </div>
+  </div>
+  <div class="row" >
+      <div class="col-sm-3">
+        <a class="" asp-area="" asp-controller="Student" asp-action="InsertStudent">
+      <div class="tile purple" >
+        <h3 class="title">Add Student</h3>
+        <p>Click here to add student data.</p>
+      </div>
+      </a>
+    </div>
+    <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Teacher" asp-action="InsertTeacher">
+      <div class="tile red">
+        <h3 class="title">Add Teacher</h3>
+                <p>Click here to add teacher data.</p>
+      </div>
+       </a>
+    </div>
+    <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Subject" asp-action="InsertSubject">
+      <div class="tile orange">
+        <h3 class="title">Add Subject</h3>
+        <p>Click here to add subject data.</p>
+      </div>
+      </a>
+    </div>
+    <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Subject" asp-action="InsertSubjectLanguageMapping">
+            <div class="tile green">
+                <h5 class="title">Subject Mapping</h5>
+                <p>Click here to set subject and language mapping.</p>
+            </div>
+</a>
+        </div>
+        
+
+         <div class="col-sm-3">
+             <a class="" asp-area="" asp-controller="Teacher" asp-action="InsertTeacherSubjectMapping">
+      <div class="tile blue">
+                    <h4 class="title">Teacher Mapping</h4>
+                    <p>Click here to set teacher,subject,class and language mapping.</p>
+      </div>
+      </a>
+    </div>    
+  </div>
+  <br />
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Student" asp-action="StudentList">
+                <div class="tile purple">
+                    <h3 class="title">Student List</h3>
+                    <p>Click here to View student data.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Teacher" asp-action="TeacherList">
+                <div class="tile red">
+                    <h3 class="title">Teacher List</h3>
+                    <p>Click here to view teacher data.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Subject" asp-action="SubjectList">
+                <div class="tile orange">
+                    <h3 class="title">Subject List</h3>
+                    <p>Click here to view subject data.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Subject" asp-action="SubjectLanguageMappingList">
+                <div class="tile green">
+                    <h5 class="title">Subject Mapping List</h5>
+                    <p>Click here to view subject and language mapping data.</p>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-sm-3">
+            <a class="" asp-area="" asp-controller="Teacher" asp-action="TeacherSubjectMappingList">
+                <div class="tile blue">
+                    <h5 class="title">Teacher Mapping List</h5>
+                    <p>Click here to view teacher,subject,class and language mapping data.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+  </div>
+                   
+<div class="text-center">    
+    <p>Developed by Javed Bloch <a href="https://docs.microsoft.com/aspnet/core"> download source code from git Core</a>.</p>
+</div>

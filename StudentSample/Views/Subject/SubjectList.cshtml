@@ -1,0 +1,62 @@
+﻿@model SubjectListModel
+
+<form method="post" enctype="multipart/form-data"
+      asp-action="SubjectList" asp-controller="Subject">
+    @if (@Model != null)
+    {
+        <div class="containt">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="SubjectName"></label>
+                        <input asp-for="SubjectName" class="form-control" />
+                        <span asp-validation-for="SubjectName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="Search" />
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <div class="=row">
+                <div class="col">
+                    <table class="table" id="tblSubjectGrid">
+                        <thead>
+                            <tr>
+                                <th>Name</th>                              
+                                <th>Select</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var data in @Model.SubjectList)
+                            {
+                                <tr>
+                                    <td>@data.Name </td>                                  
+                                    <td>
+                                        <button type="submit" class="btn btn-info" asp-controller="subject" asp-action="getsubject" asp-route-Id="@data.Id"> Select </button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-danger" asp-controller="subject" asp-action="deletesubject" asp-route-Id="@data.Id"> Delete </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    }
+</form>

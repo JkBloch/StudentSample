@@ -1,0 +1,67 @@
+﻿@inject StudentSample.ISubjectRepository _subjectRepository
+@inject StudentSample.ILanguageRepository _languageRepository
+@inject StudentSample.IStudentClassRepository _studentClassRepository
+@inject StudentSample.ITeacherRepository _teacherRepository
+
+@{
+    ViewData["Title"] = "Add TeacherSubjectMapping";
+    var selectlstSubject = (await _subjectRepository.GetAllSubject()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var selectlstLanguage = (await _languageRepository.GetAllLanguage()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var selectlstTeacher = (await _teacherRepository.GetAllTeacher()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var selectlstStudentClass = (await _studentClassRepository.GetAllStudentClass()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+@model TeacherSubjectMappingModel
+
+<div class="container">
+    <h5 class="display-7"> Add Teacher Subject Class and Language Mapping</h5>
+    @if (ViewBag.IsSuccess)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Record added successfully. <br />
+            Click <a asp-controller="teacher" asp-action="GetTeacherSubjectMapping" asp-route-Id="@ViewBag.TeacherSubjectMappingId"> here </a> to view the details.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="myLoader" style="display:none;">
+            <span class="sr-only"></span>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data"
+          asp-action="InsertTeacherSubjectMapping" asp-controller="Teacher">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="form-group">
+            <label asp-for="TeacherId"></label>
+            <select asp-for="TeacherId" class="form-select" required asp-items="selectlstTeacher">
+                <option value="">Select Teacher</option>
+            </select>
+            <span asp-validation-for="SubjectId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StudentClassId"></label>
+            <select asp-for="StudentClassId" class="form-select" required asp-items="selectlstStudentClass">
+                <option value="">Select StudentClass</option>
+            </select>
+            <span asp-validation-for="StudentClassId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubjectId"></label>
+            <select asp-for="SubjectId" class="form-select" required asp-items="selectlstSubject">
+                <option value="">Select Subject</option>
+            </select>
+            <span asp-validation-for="SubjectId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LanguageId"></label>
+            <select asp-for="LanguageId" class="form-select" required asp-items="selectlstLanguage">
+                <option value="">Select Language</option>
+            </select>
+            <span asp-validation-for="LanguageId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <br />
+            <input type="submit" class="btn btn-primary" value="Add TeacherSubjectMapping" />
+        </div>
+    </form>
+</div>

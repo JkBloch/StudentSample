@@ -1,0 +1,108 @@
+﻿@inject StudentSample.ISubjectRepository _subjectRepository
+@inject StudentSample.ILanguageRepository _languageRepository
+@inject StudentSample.IStudentClassRepository _studentClassRepository
+@inject StudentSample.ITeacherRepository _teacherRepository
+
+@{
+    ViewData["Title"] = "Teacher Subject and Class Mapping";
+    var selectlstSubject = (await _subjectRepository.GetAllSubject()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var selectlstLanguage = (await _languageRepository.GetAllLanguage()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var selectlstTeacher = (await _teacherRepository.GetAllTeacher()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+    var selectlstStudentClass = (await _studentClassRepository.GetAllStudentClass()).Select(x => new SelectListItem(x.Name, x.Id.ToString()));
+}
+@model TeacherSubjectMappingListModel
+<form method="post" enctype="multipart/form-data"
+      asp-action="TeacherSubjectMappingList" asp-controller="Teacher">
+    @if (@Model != null)
+    {
+        <div class="containt">
+            <div class="row">
+                 <div class="col">
+                    <div class="form-group">
+                        <label asp-for="TeacherId"></label>
+                        <select asp-for="TeacherId" class="form-select" required asp-items="selectlstTeacher">
+                            <option value="@Guid.Empty">All</option>
+                        </select>
+                        <span asp-validation-for="TeacherId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="StudentClassId"></label>
+                        <select asp-for="StudentClassId" class="form-select" required asp-items="selectlstStudentClass">
+                            <option value="@Guid.Empty">All</option>
+                        </select>
+                        <span asp-validation-for="StudentClassId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="SubjectId"></label>
+                        <select asp-for="SubjectId" class="form-select" required asp-items="selectlstSubject">
+                            <option value="@Guid.Empty">All</option>
+                        </select>
+                        <span asp-validation-for="SubjectId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="LanguageId"></label>
+                        <select asp-for="LanguageId" class="form-select" required asp-items="selectlstLanguage">
+                            <option value="@Guid.Empty">All</option>
+                        </select>
+                        <span asp-validation-for="LanguageId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="Search" />
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <div class="=row">
+                <div class="col">
+                    <table class="table" id="tblStudentGrid">
+                        <thead>
+                            <tr>
+                                <th>Teacher Name</th>
+                                <th>Clss Name</th>
+                                <th>Subject Name</th>
+                                <th>Language </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var data in @Model.TeacherSubjectMappingModelList)
+                            {
+                                <tr>
+                                    <td>@data.TeacherName </td>
+                                    <td>@data.StudentClassName </td>
+                                    <td>@data.SubjectName </td>
+                                    <td>@data.LanguageName </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-info" asp-controller="teacher" asp-action="GetTeacherSubjectMapping" asp-route-Id="@data.Id"> Select </button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-danger" asp-controller="teacher" asp-action="DeleteTeacherSubjectMapping" asp-route-Id="@data.Id"> Delete </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    }
+</form>

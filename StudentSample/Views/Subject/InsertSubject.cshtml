@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Add Subject";    
+}
+@model SubjectModel
+
+<div class="container">
+    <h5 class="display-7"> Add NewSubject</h5>
+    @if (ViewBag.IsSuccess)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Record added successfully. <br />
+            Click <a asp-controller="subject" asp-action="getsubject" asp-route-Id="@ViewBag.SubjectId"> here </a> to view the details.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="myLoader" style="display:none;">
+            <span class="sr-only"></span>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data"
+          data-ajax="false"
+          data-ajax-complete="myComplete"
+          data-ajax-success="mySuccess"
+          data-ajax-failure="myFailure"
+          data-ajax-loading="#myLoader"
+          asp-action="InsertSubject" asp-controller="Subject">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>      
+        <div class="form-group">
+            <br />
+            <input type="submit" class="btn btn-primary" value="Add Subject" />
+
+        </div>
+    </form>
+</div>

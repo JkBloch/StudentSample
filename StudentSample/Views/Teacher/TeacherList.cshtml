@@ -1,0 +1,66 @@
+﻿@model TeacherListModel
+
+<form method="post" enctype="multipart/form-data"
+      asp-action="TeacherList" asp-controller="Teacher">
+    @if (@Model != null)
+    {
+        <div class="containt">
+            <div class="row">               
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="TeacherName"></label>
+                        <input asp-for="TeacherName" class="form-control" />
+                        <span asp-validation-for="TeacherName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="Search" />
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <br />
+            <div class="=row">
+                <div class="col">
+                    <table class="table" id="tblTeacherGrid">
+                        <thead>
+                            <tr>                               
+                                <th>Name</th>
+                                <th>Sex</th>
+                                <th>Age</th>
+                                <th>Select</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var data in @Model.TeacherList)
+                            {
+                                <tr>
+                                    <td>@data.Name </td>
+                                    <td>@data.Sex </td>                                   
+                                    <td>@data.Age </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-info" asp-controller="teacher" asp-action="getteacher" asp-route-Id="@data.Id"> Select </button>
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="btn btn-danger" asp-controller="teacher" asp-action="deleteteacher" asp-route-Id="@data.Id"> Delete </button>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    }
+</form>
